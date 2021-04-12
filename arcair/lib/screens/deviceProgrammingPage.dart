@@ -3,12 +3,13 @@ import 'package:arcair/widgets/materialButtonWidget.dart';
 import 'package:arcair/widgets/rangeSliderWidget.dart';
 import 'package:flutter/material.dart';
 
-class AlertSettingPage extends StatefulWidget {
+class DeviceProgrammingPage extends StatefulWidget {
   @override
-  _AlertSettingPageState createState() => _AlertSettingPageState();
+  _DeviceProgrammingPageState createState() => _DeviceProgrammingPageState();
 }
 
-class _AlertSettingPageState extends State<AlertSettingPage> {
+// RangeSliderWidget ' ı kullanıldı
+class _DeviceProgrammingPageState extends State<DeviceProgrammingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +31,8 @@ class _AlertSettingPageState extends State<AlertSettingPage> {
                       fontSize: 25),
                 ),
               ),
+
+              // RangeSlider sınıfı ile oluşturulmuş sliderlar
               Flexible(
                 child: RangeSliderWidget(
                   divisions: 100,
@@ -38,6 +41,7 @@ class _AlertSettingPageState extends State<AlertSettingPage> {
                   sliderName: "CO(ppm)",
                   start: 400,
                   end: 600,
+                  sliderColor: Colors.black,
                 ),
               ),
               Flexible(
@@ -48,6 +52,7 @@ class _AlertSettingPageState extends State<AlertSettingPage> {
                   sliderName: "Nem(%)",
                   start: 20,
                   end: 60,
+                  sliderColor: Colors.blue,
                 ),
               ),
               Flexible(
@@ -58,6 +63,7 @@ class _AlertSettingPageState extends State<AlertSettingPage> {
                   sliderName: "Sıcaklık",
                   start: 22,
                   end: 26,
+                  sliderColor: Colors.red,
                 ),
               ),
               Flexible(
@@ -68,20 +74,13 @@ class _AlertSettingPageState extends State<AlertSettingPage> {
                   sliderName: "Hava\nKalitesi",
                   start: 400,
                   end: 600,
-                ),
-              ),
-              Flexible(
-                child: Text(
-                  "Uyarı Metni",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 21,
-                  ),
+                  sliderColor: Colors.grey,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 30),
                 child: TextField(
+                  // Kullanıcının uyarı mesajını gireceği textField
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
                     hintText: "Uyarı metnini giriniz:",
@@ -97,23 +96,28 @@ class _AlertSettingPageState extends State<AlertSettingPage> {
                     Expanded(
                       child: MaterialButtonWidget(
                         buttonText: "KAYDET",
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, "/homePage", (route) => false);
+                        },
                       ),
                     ),
                     SizedBox(width: 10),
                     Expanded(
                       child: MaterialButtonWidget(
                         buttonText: "VAZGEÇ",
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/deviceDetailPage");
+                        },
                       ),
                     ),
                   ],
                 ),
               ),
               Flexible(
-                child: TextButton(
+                child: TextButton(   // eski uyarıları listelenecek sayfaya atacak
                   child: Text(
-                    "Uyarı geçmişini Görüntüle",
+                    "Uyarı Geçmişini Görüntüle",
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,

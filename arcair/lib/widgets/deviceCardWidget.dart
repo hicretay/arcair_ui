@@ -1,13 +1,23 @@
+import 'package:arcair/widgets/materialButtonWidget.dart';
+import 'package:arcair/widgets/textFieldWidget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //HomePage sayfasının görünümü
 class DeviceCardWidget extends StatelessWidget {
-  final String coLevel, temperature, humidityLevel, airQuality;
-  final String deviceName;
-  final Color cardColor;
-  final Color warningColor;
+  final int coLevel,
+      temperature,
+      humidityLevel,
+      airQuality; // Cihazdan gelen CO, nem, sıcaklık, hava kalitesi verileri
+  final String deviceName; //Cihaz adı
+  final Color
+      cardColor; //Verilerin durumuna göre cihaz card'ının arka plan rengi
+  final Color
+      warningColor; // Cihaz uyarı ikonu rengi. Uyarı verilmiyorsa transparent, uyarı veriliyorsa siyah verilecek
+
+//Constructor Method
   DeviceCardWidget({
     this.deviceName,
     this.cardColor,
@@ -27,7 +37,7 @@ class DeviceCardWidget extends StatelessWidget {
           color: cardColor,
           child: ListTile(
             onTap: () {
-              Navigator.pushNamed(context, "/deviceDetailPage");
+              Navigator.pushNamed(context, "/deviceDetailPage");  // cihaz tıklanırsa cihaz detay sayfasına yönlendirecek
             },
             title: Column(
               children: [
@@ -52,7 +62,7 @@ class DeviceCardWidget extends StatelessWidget {
                           ),
                           Text("ppm"),
                           Text(
-                            coLevel,
+                            coLevel.toString(),
                             style: TextStyle(
                                 fontSize: 35, fontWeight: FontWeight.bold),
                           ),
@@ -70,7 +80,7 @@ class DeviceCardWidget extends StatelessWidget {
                           ),
                           Text("%"),
                           Text(
-                            humidityLevel,
+                            humidityLevel.toString(),
                             style: TextStyle(
                                 fontSize: 35, fontWeight: FontWeight.bold),
                           ),
@@ -88,7 +98,7 @@ class DeviceCardWidget extends StatelessWidget {
                           ),
                           Text("°C"),
                           Text(
-                            temperature,
+                            temperature.toString(),
                             style: TextStyle(
                                 fontSize: 35, fontWeight: FontWeight.bold),
                           ),
@@ -106,7 +116,7 @@ class DeviceCardWidget extends StatelessWidget {
                           ),
                           Text("ppm"),
                           Text(
-                            airQuality,
+                            airQuality.toString(),
                             style: TextStyle(
                                 fontSize: 35, fontWeight: FontWeight.bold),
                           ),
@@ -126,7 +136,7 @@ class DeviceCardWidget extends StatelessWidget {
         ),
       ),
       actionPane: SlidableBehindActionPane(),
-      actions: [
+      actions: [   // slidable sola kaydrılırsa cihaz silme alertDialogo cikacak
         IconSlideAction(
           iconWidget: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -144,10 +154,12 @@ class DeviceCardWidget extends StatelessWidget {
             ],
           ),
           color: Colors.transparent,
-          onTap: () {},
+          onTap: () {
+            buildDeletePopUp(context);
+          },
         ),
       ],
-      secondaryActions: [
+      secondaryActions: [  //slidable sağa kaydrılırsa cihaz düzenleme alertDialogu cikacak
         IconSlideAction(
           iconWidget: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -164,9 +176,113 @@ class DeviceCardWidget extends StatelessWidget {
             ],
           ),
           color: Colors.transparent,
-          onTap: () {},
+          onTap: () {
+            buildEditPopUp(context);
+          },
         ),
       ],
+    );
+  }
+
+// Sil butonuna basılınca açılacak alertDialog
+  buildDeletePopUp(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Cihaz silinsin mi? "),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  child: Text(
+                    "İptal",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text(
+                    "Sil",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black),
+                  ),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+// Düzenle butonuna basılınca açılacak alertDialog
+  buildEditPopUp(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            "SALON Cihazı Bilgilerini Düzenle",
+            textAlign: TextAlign.center,
+            style:
+                TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TextFieldWidget(
+                labelText: "Cihaz Adı:",
+                obscureText: false,
+              ),
+              MaterialButtonWidget(
+                buttonText: "Cihazın Bağlanacağı Ağı Seç",
+                onPressed: () {
+                  Navigator.pushNamed(context, "/addDevicePage");
+                },
+              ),
+            ],
+          ),
+          actions: [
+            Row(
+              children: [
+                TextButton(
+                  child: Text(
+                    "İptal",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text(
+                    "Düzenle",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black),
+                  ),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

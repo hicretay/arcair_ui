@@ -1,12 +1,11 @@
 import 'package:arcair/screens/addDevicePage.dart';
 import 'package:arcair/screens/alertHistoryPage.dart';
 import 'package:arcair/screens/deviceDetailPage.dart';
-import 'package:arcair/screens/deviceProgramming.dart';
+import 'package:arcair/screens/deviceProgrammingPage.dart';
 import 'package:arcair/screens/homePage.dart';
 import 'package:arcair/screens/loginPage.dart';
 import 'package:arcair/screens/nearbyWifiPage.dart';
 import 'package:arcair/screens/registerPage.dart';
-import 'package:arcair/screens/resetPassPage.dart';
 import 'package:arcair/screens/splashPage.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +16,6 @@ class Routers {
         return MaterialPageRoute(builder: (_) => SplashPage());
       case loginRoute:
         return MaterialPageRoute(builder: (_) => LoginPage());
-      case resetPassRoute:
-        return MaterialPageRoute(builder: (_) => ResetPassPage());
       case registerRoute:
         return MaterialPageRoute(builder: (_) => RegisterPage());
       case homeRoute:
@@ -29,8 +26,8 @@ class Routers {
         return MaterialPageRoute(builder: (_) => AddDevicePage());
       case alertHistoryRoute:
         return MaterialPageRoute(builder: (_) => AlertHistoryPage());
-      case alertSettingRoute:
-        return MaterialPageRoute(builder: (_) => AlertSettingPage());
+      case deviceProgrammingRoute:
+        return MaterialPageRoute(builder: (_) => DeviceProgrammingPage());
       case deviceDetailRoute:
         return MaterialPageRoute(builder: (_) => DeviceDetailPage());
 
@@ -39,7 +36,10 @@ class Routers {
           builder: (_) => Scaffold(
             appBar: AppBar(),
             body: Center(
-              child: Text("Ters giden bir şeyler oldu"),
+              child: Text(
+                "Ters giden bir şeyler oldu !",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         );
@@ -49,11 +49,10 @@ class Routers {
 
 const String splashRoute = "/";
 const String loginRoute = "/loginPage";
-const String resetPassRoute = "/resetPassPage";
 const String registerRoute = "/registerPage";
 const String homeRoute = "/homePage";
 const String nearbyWifiRoute = "/nearbyWifiPage";
 const String addDeviceRoute = "/addDevicePage";
 const String alertHistoryRoute = "/alertHistoryPage";
-const String alertSettingRoute = "/alertSettingPage";
+const String deviceProgrammingRoute = "/deviceProgrammingPage";
 const String deviceDetailRoute = "/deviceDetailPage";

@@ -4,10 +4,10 @@ import 'package:syncfusion_flutter_core/theme.dart';
 
  //Grafiklerin Görünümü, deviceDetailPage sayfasında kullanıldı
 class ChartWidget extends StatelessWidget {
-  final String chartTitle, columnName, labelFormat;
-  final int value0, value6, value12, value18, value24;
-  final double columnMax;
-  final Color color;
+  final String chartTitle, columnName, labelFormat;  //grafik başlığı , kolon adı ve kolon görünümü(% veya normal değer)
+  final int value0, value6, value12, value18, value24;  // altı saatte alınan grafik değerleri
+  final double columnMax; // kolonun max alabileceği değer
+  final Color color;  // başlık ve grafik rengi
   ChartWidget({
     this.chartTitle,
     this.columnName,
@@ -52,7 +52,7 @@ class ChartWidget extends StatelessWidget {
           majorTickLineColor: Colors.black,
         ),
       ),
-      child: SfCartesianChart(
+      child: SfCartesianChart(   //SfCartesianChart widgetı ile grafik oluştuurlması
         title: ChartTitle(
           text: chartTitle,
           textStyle: TextStyle(color: color, fontSize: 18),
@@ -75,7 +75,7 @@ class ChartWidget extends StatelessWidget {
   }
 }
 
-class ChartVariables {
+class ChartVariables {  //grafikteki x ve y koordinatlarının seçilmesi
   final int value, time;
   ChartVariables({this.value, this.time});
 }

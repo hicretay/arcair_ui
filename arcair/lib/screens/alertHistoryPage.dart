@@ -7,7 +7,29 @@ class AlertHistoryPage extends StatefulWidget {
   _AlertHistoryPageState createState() => _AlertHistoryPageState();
 }
 
+// AlertHistoryCardWidget ' ı kullanılarak oluşturuldu
 class _AlertHistoryPageState extends State<AlertHistoryPage> {
+  // Cihazdan gelen uyarı mesajlarının listesi
+  List alertItems = [
+    AlertHistoryCardWidget(
+      alertText:
+          "Dikkat hava kalitesi zararlı seviyede! Lütfen ortamı havalandırın !",
+      cardColor: Color.fromRGBO(255, 103, 55, 0.3),
+      airQuality: 73,
+      coLevel: 35,
+      humidityLevel: 30,
+      temperature: 22,
+    ),
+    AlertHistoryCardWidget(
+      alertText: "Dikkat zehrilenme uyarısı karbonmonoksit tehlikeli seviyede!",
+      airQuality: 43,
+      cardColor: Color.fromRGBO(0, 0, 0, 0.4),
+      coLevel: 75,
+      humidityLevel: 30,
+      temperature: 22,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,21 +37,30 @@ class _AlertHistoryPageState extends State<AlertHistoryPage> {
         title: Text("UYARI GEÇMİŞİ"),
       ),
       body: BackgroundWidget(
-        child: Column(
-          children: [
-            Flexible(
-              child: AlertHistoryCardWidget(
-                cardColor: Color.fromRGBO(255, 103, 55, 0.3),
-                alertText:
-                    "Dikkat hava kalitesi zararlı seviyede! Lütfen ortamı havalandırın !",
-                airQuality: "73",
-                coLevel: "35",
-                humidityLevel: "30",
-                temperature: "22",
-              ),
-            ),
-          ],
-        ),
+        child: ListView.builder(
+            itemCount: alertItems.length,
+            itemBuilder: (context, index) {
+              AlertHistoryCardWidget keyValue = alertItems[
+                  index]; // keyValue = AlertHistoryCardWidget ının indexinci itemi
+              return Dismissible(
+                onDismissed: (direction) {
+                  setState(() {
+                    alertItems.removeAt(index); // itemin silinmesi
+                  });
+                },
+                child: alertItems[index],
+                key: Key(keyValue.dateTime.toString()),
+                background: Container(
+                  // dismissible kaydırıldıgında oluşacak görünüm
+                  color: Colors.red,
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.black,
+                    size: 35,
+                  ),
+                ),
+              );
+            }),
       ),
     );
   }

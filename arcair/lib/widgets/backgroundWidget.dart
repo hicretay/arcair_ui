@@ -13,7 +13,8 @@ class BackgroundWidget extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage("lib/assets/images/background.jpg"),
-              fit: BoxFit.cover),
+              // resim erkanı kaplayacak
+              fit: BoxFit.cover), 
         ));
   }
 }

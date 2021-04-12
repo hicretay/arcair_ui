@@ -1,4 +1,3 @@
-import 'package:arcair/screens/homePage.dart';
 import 'package:arcair/widgets/backgroundWidget.dart';
 import 'package:arcair/widgets/materialButtonWidget.dart';
 import 'package:arcair/widgets/textFieldWidget.dart';
@@ -23,20 +22,19 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(
               height: 50,
             ),
+            // Kullanıcıdan ad soyad, e posta ve şifre alınarak kayıt yapılacak
             TextFieldWidget(labelText: "Adı Soyadı:", obscureText: false),
             TextFieldWidget(labelText: "E-Posta", obscureText: false),
             TextFieldWidget(labelText: "Şifre", obscureText: true),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: MaterialButtonWidget(
+                // Kayıt tamamlandığında
                 buttonText: "KAYDOL",
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomePage(),
-                    ),
-                  );
+                  // Kayıt tamamlandığında giriş ekranına atacak
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, "/loginPage", (route) => false);
                 },
               ),
             ),

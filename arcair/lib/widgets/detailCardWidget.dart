@@ -1,12 +1,11 @@
-import 'package:arcair/screens/deviceDetailPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //DeviceDetailPage sayfasının görünümü
 class DetailCardWidget extends StatelessWidget {
-  final String coLevel, temperature, humidityLevel, airQuality;
-  final Color warningColor;
-  final VoidCallback onPressed;
+  final int coLevel, temperature, humidityLevel, airQuality; // Cihazdan alınacak değerler
+  final Color warningColor; // Card da görünecek uyarı icon rengi. Değerler normal ise ikon rengi transparent olacak
+  final VoidCallback onPressed; // Alarm iconButton onPressi
 
   DetailCardWidget(
       {this.coLevel,
@@ -15,6 +14,7 @@ class DetailCardWidget extends StatelessWidget {
       this.airQuality,
       this.warningColor,
       this.onPressed});
+      
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -39,7 +39,7 @@ class DetailCardWidget extends StatelessWidget {
                     ),
                     Text("ppm"),
                     Text(
-                      coLevel,
+                      coLevel.toString(),
                       style:
                           TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                     ),
@@ -57,7 +57,7 @@ class DetailCardWidget extends StatelessWidget {
                     ),
                     Text("%"),
                     Text(
-                      humidityLevel,
+                      humidityLevel.toString(),
                       style:
                           TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                     ),
@@ -75,7 +75,7 @@ class DetailCardWidget extends StatelessWidget {
                     ),
                     Text("°C"),
                     Text(
-                      temperature,
+                      temperature.toString(),
                       style:
                           TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                     ),
@@ -93,7 +93,7 @@ class DetailCardWidget extends StatelessWidget {
                     ),
                     Text("ppm"),
                     Text(
-                      airQuality,
+                      airQuality.toString(),
                       style:
                           TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                     ),

@@ -10,16 +10,17 @@ class TextFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: TextField(
+      child: TextField(    // özelleştirilmiş textField. LoginPage, registerPagede kullanıldı
         cursorColor: Colors.black,
         obscureText: obscureText,
         controller: controller,
+        
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(),
             focusedBorder:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             labelText: labelText,
-            labelStyle: TextStyle(color: Colors.black)),
+            labelStyle: TextStyle(color: Colors.black87)),
       ),
     );
   }

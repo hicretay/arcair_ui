@@ -11,6 +11,8 @@ class DeviceDetailPage extends StatefulWidget {
 }
 
 class _DeviceDetailPageState extends State<DeviceDetailPage> {
+
+  // chartWidget sınıfından oluşturulmuş grafik listesi
   List<ChartWidget> charts = [
     ChartWidget(
       columnName: "CO(ppm)",
@@ -63,21 +65,21 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("SALON"),
+        title: Text("SALON"),   // seçilen cihaz adı appBara yazılacak
       ),
       body: BackgroundWidget(
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: DetailCardWidget(
-                airQuality: "43",
-                coLevel: "35",
-                humidityLevel: "30",
-                temperature: "22",
+              child: DetailCardWidget(   // cihazın anlık değerlerini verecek
+                airQuality: 43,
+                coLevel: 35,
+                humidityLevel: 30,
+                temperature: 22,
                 warningColor: Colors.black,
                 onPressed: () {
-                  Navigator.pushNamed(context, "/alertSettingPage");
+                  Navigator.pushNamed(context, "/deviceProgrammingPage");  // alarm iconuna basıldığında cihaz programlama sayfasına atacak
                 },
               ),
             ),
@@ -88,7 +90,7 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: const EdgeInsets.only(top: 15),
-                    child: charts[index],
+                    child: charts[index],  //charts listesi döndürülecek
                   );
                 },
               ),

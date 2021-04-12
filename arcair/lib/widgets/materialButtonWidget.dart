@@ -8,7 +8,7 @@ class MaterialButtonWidget extends StatelessWidget {
   MaterialButtonWidget({this.onPressed, this.buttonText});
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
+    return MaterialButton(  // onPressed parametre alana özelleştirilmiş materialButton
       onPressed: onPressed,
       child:
           Text(buttonText, style: TextStyle(color: Colors.white, fontSize: 18)),

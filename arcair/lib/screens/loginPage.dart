@@ -8,9 +8,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  //Kullanıcı adı ve şifre controlleri
   TextEditingController t1 = new TextEditingController();
   TextEditingController t2 = new TextEditingController();
-  bool checked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +29,35 @@ class _LoginPageState extends State<LoginPage> {
         child: Padding(
           padding: const EdgeInsets.all(40.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 110,
-              ),
-              TextFieldWidget(
-                labelText: "E-Posta",
-                controller: t1,
-                obscureText: false,
-              ),
-              TextFieldWidget(
-                  labelText: "Şifre", controller: t2, obscureText: true),
-              MaterialButtonWidget(
-                buttonText: "GİRİŞ",
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, "/homePage", (route) => false);
-                },
+              Spacer(
+                flex: 4,
               ),
               Flexible(
+                flex: 2,
+                child: TextFieldWidget(   // E- posta alma textFieldi
+                  labelText: "E-Posta",
+                  controller: t1,
+                  obscureText: false,
+                ),
+              ),
+              Flexible(
+                flex: 2,
+                child: TextFieldWidget(   //Şifre alma textFieldi
+                    labelText: "Şifre", controller: t2, obscureText: true),
+              ),
+              Flexible(
+                flex: 1,
+                child: MaterialButtonWidget(      //Anasayfa giriş butonu
+                  buttonText: "GİRİŞ",
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, "/homePage", (route) => false);
+                  },
+                ),
+              ),
+              Flexible(
+                flex: 1,
                 child: TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, "/registerPage");
@@ -61,29 +71,78 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, "/resetPassPage");
-                      },
-                      child: Text(
-                        "ŞİFREMİ UNUTTUM",
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 13,
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.bold),
+              Flexible(
+                flex: 1,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(   // Şifremi unuttum alertDialogu açılacak
+                        onPressed: () {
+                          setState(() {
+                            buildResetPassPopUp(context);
+                          });
+                        },
+                        child: Text(
+                          "ŞİFREMİ UNUTTUM",   
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontSize: 13,
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  // Şifre sıfırlama alertDialogu
+  buildResetPassPopUp(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: TextFieldWidget(
+            labelText: "E-Posta",
+            obscureText: true,
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  child: Text(
+                    "İptal",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text(
+                    "Şifremi Sıfırla",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black),
+                  ),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

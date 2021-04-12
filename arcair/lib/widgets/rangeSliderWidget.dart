@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 
 //Slider widgetın özelleştirilmesi, deviceDetailPage de kullanıldı
 class RangeSliderWidget extends StatefulWidget {
-  final int divisions;
-  final double min, max;
-  final String sliderName;
-  final double end, start;
+  final int divisions;  //sliderin bölümleme sayısı
+  final double min, max;  // sliderın alabileceği min, max değerler
+  final String sliderName;  // sliderın yanında yazacak değeri
+  final double end, start; //kaydırıldıkca değişecek değerleri
+  final Color sliderColor; //slider çubuk rengi
 
-  RangeSliderWidget({
-    this.min,
-    this.max,
-    this.sliderName,
-    this.divisions,
-    this.end,
-    this.start,
-  });
+  RangeSliderWidget(
+      {this.min,
+      this.max,
+      this.sliderName,
+      this.divisions,
+      this.end,
+      this.start,
+      this.sliderColor});
 
   @override
   _RangeSliderWidgetState createState() => _RangeSliderWidgetState(start, end);
@@ -22,11 +23,11 @@ class RangeSliderWidget extends StatefulWidget {
 
 class _RangeSliderWidgetState extends State<RangeSliderWidget> {
   double start = 0, end = 0;
-  _RangeSliderWidgetState(double start, double end) {
+  _RangeSliderWidgetState(double start, double end) {  //değişen değerlerin yapıcısı
     this.start = start;
     this.end = end;
   }
-  double sliderStart = 0.0;
+  double sliderStart = 0.0;  //slider başlangıçları
   var selectRange;
   @override
   void initState() {
@@ -52,7 +53,7 @@ class _RangeSliderWidgetState extends State<RangeSliderWidget> {
               values: selectRange,
               divisions: widget.divisions,
               inactiveColor: Colors.blueGrey,
-              activeColor: Colors.black,
+              activeColor: widget.sliderColor,
               labels: RangeLabels(
                 selectRange.start.round().toString(),
                 selectRange.end.round().toString(),

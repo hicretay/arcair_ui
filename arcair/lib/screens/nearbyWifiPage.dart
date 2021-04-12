@@ -33,20 +33,6 @@ class _NearbyWifiPageState extends State<NearbyWifiPage> {
                       ),
                       ListTile(
                         title: Text(
-                          "VODAFONE",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        leading: Icon(Icons.wifi),
-                      ),
-                      ListTile(
-                        title: Text(
-                          "TurkTelekom",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        leading: Icon(Icons.wifi),
-                      ),
-                      ListTile(
-                        title: Text(
                           "ARCAİR_123",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),

@@ -8,41 +8,42 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // DeviceCardWidget sınıfı türünde cihaz bilgileri listesi
   List<DeviceCardWidget> devices = [
     DeviceCardWidget(
-      airQuality: "43",
+      airQuality: 43,
       cardColor: Color.fromRGBO(0, 255, 0, 0.2),
       deviceName: "SALON",
-      coLevel: "35",
-      humidityLevel: "30",
-      temperature: "22",
+      coLevel: 35,
+      humidityLevel: 30,
+      temperature: 22,
       warningColor: Colors.transparent,
     ),
     DeviceCardWidget(
-      airQuality: "43",
+      airQuality: 43,
       cardColor: Color.fromRGBO(255, 0, 0, 0.3),
       deviceName: "CİHAZ_1",
-      coLevel: "35",
-      humidityLevel: "30",
-      temperature: "22",
+      coLevel: 35,
+      humidityLevel: 30,
+      temperature: 22,
       warningColor: Colors.black,
     ),
     DeviceCardWidget(
-      airQuality: "43",
+      airQuality: 43,
       cardColor: Color.fromRGBO(0, 0, 0, 0.4),
       deviceName: "TOPLANTI ODASI",
-      coLevel: "75",
-      humidityLevel: "30",
-      temperature: "22",
+      coLevel: 75,
+      humidityLevel: 30,
+      temperature: 22,
       warningColor: Colors.black,
     ),
     DeviceCardWidget(
-      airQuality: "43",
+      airQuality: 43,
       cardColor: Color.fromRGBO(255, 103, 55, 0.3),
       deviceName: "CİHAZ_2",
-      coLevel: "35",
-      humidityLevel: "30",
-      temperature: "22",
+      coLevel: 35,
+      humidityLevel: 30,
+      temperature: 22,
       warningColor: Colors.black,
     ),
   ];
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
         title: Text("ARCAİR"),
         actions: [buildPopupMenu()],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(  // yeni cihaz ekleme
         backgroundColor: Color(0xff66778e),
         child: Icon(
           Icons.add,
@@ -70,17 +71,19 @@ class _HomePageState extends State<HomePage> {
           child: ListView.builder(
               itemCount: devices.length,
               itemBuilder: (BuildContext context, int index) {
-                return devices[index];
+                return devices[index];  // devices listesi döndürülecek 
               }),
         ),
       ),
     );
   }
 
+  // Sağ üstteki açılır menü
   buildPopupMenu() {
     return PopupMenuButton(
       onSelected: (value) {},
       itemBuilder: (context) => [
+        //Ayarlar sekmesi 
         PopupMenuItem(
           value: 1,
           child: ListTile(
@@ -89,6 +92,7 @@ class _HomePageState extends State<HomePage> {
             title: Text("Ayarlar"),
           ),
         ),
+        //Lisans Bilgileri Sekmesi
         PopupMenuItem(
           value: 2,
           child: ListTile(
@@ -97,6 +101,7 @@ class _HomePageState extends State<HomePage> {
             title: Text("Lisans Bilgileri"),
           ),
         ),
+        //Hakkında sekmesi
         PopupMenuItem(
           value: 3,
           child: ListTile(
@@ -105,6 +110,7 @@ class _HomePageState extends State<HomePage> {
             title: Text("Hakkında"),
           ),
         ),
+        //Çıkış sekmesi kilit ekranına atacak
         PopupMenuItem(
           value: 4,
           child: ListTile(

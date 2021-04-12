@@ -9,6 +9,52 @@ class AddDevicePage extends StatefulWidget {
 }
 
 class _AddDevicePageState extends State<AddDevicePage> {
+
+  // Wifi cihazları listesi
+  List wifi = [
+    ListTile(
+      title: Text(
+        "VODAFONE",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      leading: Icon(Icons.wifi),
+    ),
+    ListTile(
+      title: Text(
+        "TURKCELL",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      leading: Icon(Icons.wifi),
+    ),
+    ListTile(
+      title: Text(
+        "TurkTelekom",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      leading: Icon(Icons.wifi),
+    ),
+    ListTile(
+      title: Text(
+        "SuperOnline",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      leading: Icon(Icons.wifi),
+    ),
+    ListTile(
+      title: Text(
+        "TTNET",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      leading: Icon(Icons.wifi),
+    ),
+    ListTile(
+      title: Text(
+        "FiberNet",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      leading: Icon(Icons.wifi),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +68,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: Text(
-                "ARCAİR_123 Cihazını Ekle",
+                "ARCAİR_123 Cihazını Ekle", //wifi'ı seçilen cihaz ismi verilecek
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
@@ -31,28 +77,39 @@ class _AddDevicePageState extends State<AddDevicePage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: TextFieldWidget(
+              child: TextFieldWidget(   // Kullanıcı cihaz adını değiştirecek
                 labelText: "Cihaz Adı",
                 obscureText: false,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Cihazın Bağlanacağı Wifi'ı Seç",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.black),
-                ),
+              child: Text(
+                "Cihazın Bağlanacağı Wifi'ı Seç",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.blueGrey[800]),
               ),
             ),
-            MaterialButtonWidget(
-              onPressed: () {},
-              buttonText: "KAYDET",
+            Flexible(
+              flex: 4,
+              child: ListView.builder(
+                  itemCount: wifi.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return wifi[index]; // wifi listesi döndürülecek
+                  }),
             ),
+            MaterialButtonWidget(
+              buttonText: "KAYDET",
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, "/homePage", (route) => false);
+              },
+            ),
+            Spacer(
+              flex: 1,
+            )
           ],
         ),
       ),
