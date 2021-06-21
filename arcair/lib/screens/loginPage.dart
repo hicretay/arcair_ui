@@ -8,10 +8,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
-  //Kullanıcı adı ve şifre controlleri
-  TextEditingController t1 = new TextEditingController();
-  TextEditingController t2 = new TextEditingController();
+//---------Kullanıcı adı ve şifre controlleri---------------
+  TextEditingController teEmail = new TextEditingController();
+  TextEditingController tePass = new TextEditingController();
+//------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +20,15 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text("KULLANICI GİRİŞİ"),
       ),
+      //----------Arkaplan Görünümü-----------------
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage("lib/assets/images/splash.jpg"),
               fit: BoxFit.cover),
         ),
+        //--------------------------------------------
+
         child: Padding(
           padding: const EdgeInsets.all(40.0),
           child: Column(
@@ -35,29 +38,40 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Flexible(
                 flex: 2,
-                child: TextFieldWidget(   // E- posta alma textFieldi
+                //-------------- E- posta alma textFieldi--------------
+                child: TextFieldWidget(
+                  keyboardType: TextInputType.emailAddress,
                   labelText: "E-Posta",
-                  controller: t1,
+                  controller: teEmail,
                   obscureText: false,
                 ),
+                //-----------------------------------------------------
               ),
               Flexible(
                 flex: 2,
-                child: TextFieldWidget(   //Şifre alma textFieldi
-                    labelText: "Şifre", controller: t2, obscureText: true),
+                //------------ Şifre alma textFieldi-------------------
+                child: TextFieldWidget(
+                    labelText: "Şifre", controller: tePass, obscureText: true),
+                //-----------------------------------------------------
               ),
               Flexible(
                 flex: 1,
-                child: MaterialButtonWidget(      //Anasayfa giriş butonu
+                //-------------Anasayfaya giriş butonu---------
+                child: MaterialButtonWidget(
                   buttonText: "GİRİŞ",
-                  onPressed: () {
+                  onPressed: () async {
+                    // final String email = teEmail.text;
+                    // final String password = tePass.text;
+
                     Navigator.pushNamedAndRemoveUntil(
                         context, "/homePage", (route) => false);
                   },
                 ),
+                //----------------------------------------------
               ),
               Flexible(
                 flex: 1,
+                //---------- Kaydol Sayfasına Geçiş Butonu----------
                 child: TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, "/registerPage");
@@ -70,20 +84,22 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
+                //-------------------------------------------------
               ),
               Flexible(
                 flex: 1,
                 child: Row(
                   children: [
                     Expanded(
-                      child: TextButton(   // Şifremi unuttum alertDialogu açılacak
+                      // ---------Şifremi unuttum alertDialogu açacak buton---------
+                      child: TextButton(
                         onPressed: () {
                           setState(() {
                             buildResetPassPopUp(context);
                           });
                         },
                         child: Text(
-                          "ŞİFREMİ UNUTTUM",   
+                          "ŞİFREMİ UNUTTUM",
                           style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontSize: 13,
@@ -91,6 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
+                      //------------------------------------------------------------
                     ),
                   ],
                 ),
@@ -102,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // Şifre sıfırlama alertDialogu
+  //------------- Şifre sıfırlama alertDialogu metodu----------------------
   buildResetPassPopUp(BuildContext context) {
     showDialog(
       context: context,
@@ -145,4 +162,5 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
   }
+  //-------------------------------------------------------------------
 }

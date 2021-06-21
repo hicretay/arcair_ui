@@ -12,7 +12,7 @@ class DeviceDetailPage extends StatefulWidget {
 
 class _DeviceDetailPageState extends State<DeviceDetailPage> {
 
-  // chartWidget sınıfından oluşturulmuş grafik listesi
+  // --------chartWidget sınıfından oluşturulmuş grafik listesi---------
   List<ChartWidget> charts = [
     ChartWidget(
       columnName: "CO(ppm)",
@@ -60,6 +60,7 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
       color: Colors.blueGrey,
     )
   ];
+  //------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +80,7 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
                 temperature: 22,
                 warningColor: Colors.black,
                 onPressed: () {
+                  // Cihaz Programlama sayfasına geçiş 
                   Navigator.pushNamed(context, "/deviceProgrammingPage");  // alarm iconuna basıldığında cihaz programlama sayfasına atacak
                 },
               ),

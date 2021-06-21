@@ -32,6 +32,7 @@ class Routers {
         return MaterialPageRoute(builder: (_) => DeviceDetailPage());
 
       default:
+      //-------------------hatalı Routing işleminde çalışacak--------------
         return MaterialPageRoute(
           builder: (_) => Scaffold(
             appBar: AppBar(),
@@ -43,10 +44,11 @@ class Routers {
             ),
           ),
         );
+     //--------------------------------------------------------------
     }
   }
 }
-
+//---------------Routing Adlandırmaları--------------------
 const String splashRoute = "/";
 const String loginRoute = "/loginPage";
 const String registerRoute = "/registerPage";
@@ -56,3 +58,4 @@ const String addDeviceRoute = "/addDevicePage";
 const String alertHistoryRoute = "/alertHistoryPage";
 const String deviceProgrammingRoute = "/deviceProgrammingPage";
 const String deviceDetailRoute = "/deviceDetailPage";
+//------------------------------------------------------------

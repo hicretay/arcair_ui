@@ -8,13 +8,17 @@ class BackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //--------Arkaplan widgetı-------------
     return Container(
-        child: child,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("lib/assets/images/background.jpg"),
-              // resim erkanı kaplayacak
-              fit: BoxFit.cover), 
-        ));
+      child: child,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("lib/assets/images/background.jpg"),
+          fit: BoxFit.cover,
+          // resim erkanı kaplayacak
+        ),
+      ),
+    );
+    //------------------------------------
   }
 }

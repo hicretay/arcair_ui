@@ -1,10 +1,15 @@
+import 'package:arcair/settings/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-//DeviceDetailPage sayfasının görünümü
+//DeviceDetailPage sayfasının anlık veriler görünümü
 class DetailCardWidget extends StatelessWidget {
-  final int coLevel, temperature, humidityLevel, airQuality; // Cihazdan alınacak değerler
-  final Color warningColor; // Card da görünecek uyarı icon rengi. Değerler normal ise ikon rengi transparent olacak
+  final int coLevel,
+      temperature,
+      humidityLevel,
+      airQuality; // Cihazdan alınacak değerler
+  final Color warningColor; // Card da görünecek uyarı icon rengi.
+  // Değerler normal ise ikon rengi transparent olacak
   final VoidCallback onPressed; // Alarm iconButton onPressi
 
   DetailCardWidget(
@@ -14,7 +19,7 @@ class DetailCardWidget extends StatelessWidget {
       this.airQuality,
       this.warningColor,
       this.onPressed});
-      
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -22,16 +27,19 @@ class DetailCardWidget extends StatelessWidget {
         children: [
           Row(
             children: [
+              //----------Uyarı ikonu-------
               Icon(
                 Icons.warning_rounded,
                 color: warningColor,
                 size: 40,
               ),
+              //----------------------------
               Expanded(
                 flex: 2,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    //-----------------Karbonmonoksit ---------------------
                     Text(
                       "CO",
                       style:
@@ -40,9 +48,9 @@ class DetailCardWidget extends StatelessWidget {
                     Text("ppm"),
                     Text(
                       coLevel.toString(),
-                      style:
-                          TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                      style: iconStyle,
                     ),
+                    //----------------------------------------------------------
                   ],
                 ),
               ),
@@ -50,6 +58,7 @@ class DetailCardWidget extends StatelessWidget {
                 flex: 2,
                 child: Column(
                   children: [
+                    //-----------------------Nem---------------------------------
                     Icon(
                       FontAwesomeIcons.tint,
                       size: 35,
@@ -58,9 +67,9 @@ class DetailCardWidget extends StatelessWidget {
                     Text("%"),
                     Text(
                       humidityLevel.toString(),
-                      style:
-                          TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                      style: iconStyle,
                     ),
+                    //------------------------------------------------------------
                   ],
                 ),
               ),
@@ -68,6 +77,7 @@ class DetailCardWidget extends StatelessWidget {
                 flex: 2,
                 child: Column(
                   children: [
+                    //-----------------------Sıcaklık-------------------------------
                     Icon(
                       FontAwesomeIcons.thermometerHalf,
                       size: 35,
@@ -76,9 +86,9 @@ class DetailCardWidget extends StatelessWidget {
                     Text("°C"),
                     Text(
                       temperature.toString(),
-                      style:
-                          TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                      style: iconStyle,
                     ),
+                    //---------------------------------------------------------------
                   ],
                 ),
               ),
@@ -86,6 +96,7 @@ class DetailCardWidget extends StatelessWidget {
                 flex: 2,
                 child: Column(
                   children: [
+                    //--------------------Hava Kalitesi------------------------------
                     Icon(
                       FontAwesomeIcons.wind,
                       size: 35,
@@ -94,18 +105,20 @@ class DetailCardWidget extends StatelessWidget {
                     Text("ppm"),
                     Text(
                       airQuality.toString(),
-                      style:
-                          TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                      style: iconStyle,
                     ),
+                    //---------------------------------------------------------------
                   ],
                 ),
               ),
+              //-------------Alarm icon Butonu-----------
               IconButton(
                 icon: Icon(FontAwesomeIcons.solidBell),
                 color: Colors.black,
-                iconSize: 40,
+                iconSize: iconSize,
                 onPressed: onPressed,
-              )
+              ),
+              //-------------------------------------------
             ],
           ),
         ],

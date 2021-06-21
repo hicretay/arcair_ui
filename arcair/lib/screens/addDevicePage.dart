@@ -9,8 +9,7 @@ class AddDevicePage extends StatefulWidget {
 }
 
 class _AddDevicePageState extends State<AddDevicePage> {
-
-  // Wifi cihazları listesi
+  //---------Örnek Wifi cihazları listesi-----------------
   List wifi = [
     ListTile(
       title: Text(
@@ -55,6 +54,8 @@ class _AddDevicePageState extends State<AddDevicePage> {
       leading: Icon(Icons.wifi),
     ),
   ];
+  //----------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,20 +68,24 @@ class _AddDevicePageState extends State<AddDevicePage> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
+              //----------wifi'ı seçilen cihaz ismi ----------
               child: Text(
-                "ARCAİR_123 Cihazını Ekle", //wifi'ı seçilen cihaz ismi verilecek
+                "ARCAİR_123 Cihazını Ekle",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
                     color: Colors.blueGrey),
               ),
+              //-------------------------------------------
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: TextFieldWidget(   // Kullanıcı cihaz adını değiştirecek
+              // ----------Cihaz adı girişi---------------
+              child: TextFieldWidget(
                 labelText: "Cihaz Adı",
                 obscureText: false,
               ),
+              //----------------------------------------
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
@@ -94,12 +99,16 @@ class _AddDevicePageState extends State<AddDevicePage> {
             ),
             Flexible(
               flex: 4,
+              // ------------wifi listesi ----------------
               child: ListView.builder(
-                  itemCount: wifi.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return wifi[index]; // wifi listesi döndürülecek
-                  }),
+                itemCount: wifi.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return wifi[index];
+                },
+              ),
+              //-------------------------------------------
             ),
+            //-------Cihazı cihaz listesine kaydetme-----------
             MaterialButtonWidget(
               buttonText: "KAYDET",
               onPressed: () {
@@ -107,6 +116,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
                     context, "/homePage", (route) => false);
               },
             ),
+            //---------------------------------------------
             Spacer(
               flex: 1,
             )

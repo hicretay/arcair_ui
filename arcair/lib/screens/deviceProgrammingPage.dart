@@ -79,8 +79,8 @@ class _DeviceProgrammingPageState extends State<DeviceProgrammingPage> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 30),
+                // ------Kullanıcının uyarı mesajını gireceği textField--------
                 child: TextField(
-                  // Kullanıcının uyarı mesajını gireceği textField
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
                     hintText: "Uyarı metnini giriniz:",
@@ -89,11 +89,13 @@ class _DeviceProgrammingPageState extends State<DeviceProgrammingPage> {
                     ),
                   ),
                 ),
+                //-------------------------------------------------------------
               ),
               Flexible(
                 child: Row(
                   children: [
                     Expanded(
+                      //---------Programlanan uyarıyı kaydetme----------------
                       child: MaterialButtonWidget(
                         buttonText: "KAYDET",
                         onPressed: () {
@@ -101,21 +103,25 @@ class _DeviceProgrammingPageState extends State<DeviceProgrammingPage> {
                               context, "/homePage", (route) => false);
                         },
                       ),
+                      //------------------------------------------------------
                     ),
                     SizedBox(width: 10),
                     Expanded(
+                      //-------Detay sayfasıan gitme--------------------------
                       child: MaterialButtonWidget(
                         buttonText: "VAZGEÇ",
                         onPressed: () {
                           Navigator.pushNamed(context, "/deviceDetailPage");
                         },
                       ),
+                      //-----------------------------------------------------
                     ),
                   ],
                 ),
               ),
               Flexible(
-                child: TextButton(   // eski uyarıları listelenecek sayfaya atacak
+                // -------eski uyarıları listeleyecek sayfaya geçiş------
+                child: TextButton( 
                   child: Text(
                     "Uyarı Geçmişini Görüntüle",
                     style: TextStyle(
@@ -129,6 +135,7 @@ class _DeviceProgrammingPageState extends State<DeviceProgrammingPage> {
                     Navigator.pushNamed(context, "/alertHistoryPage");
                   },
                 ),
+                //-------------------------------------------------------
               ),
             ],
           ),

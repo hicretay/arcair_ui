@@ -9,7 +9,7 @@ class AlertHistoryPage extends StatefulWidget {
 
 // AlertHistoryCardWidget ' ı kullanılarak oluşturuldu
 class _AlertHistoryPageState extends State<AlertHistoryPage> {
-  // Cihazdan gelen uyarı mesajlarının listesi
+  //--------Cihazdan gelen uyarı mesajlarının listesi-----------
   List alertItems = [
     AlertHistoryCardWidget(
       alertText:
@@ -21,7 +21,7 @@ class _AlertHistoryPageState extends State<AlertHistoryPage> {
       temperature: 22,
     ),
     AlertHistoryCardWidget(
-      alertText: "Dikkat zehrilenme uyarısı karbonmonoksit tehlikeli seviyede!",
+      alertText: "Dikkat zehirlenme uyarısı karbonmonoksit tehlikeli seviyede!",
       airQuality: 43,
       cardColor: Color.fromRGBO(0, 0, 0, 0.4),
       coLevel: 75,
@@ -29,6 +29,7 @@ class _AlertHistoryPageState extends State<AlertHistoryPage> {
       temperature: 22,
     ),
   ];
+  //-------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +51,8 @@ class _AlertHistoryPageState extends State<AlertHistoryPage> {
                 },
                 child: alertItems[index],
                 key: Key(keyValue.dateTime.toString()),
+                //-----dismissible kaydırıldıgında oluşacak görünüm-------             
                 background: Container(
-                  // dismissible kaydırıldıgında oluşacak görünüm
                   color: Colors.red,
                   child: Icon(
                     Icons.delete,
@@ -59,6 +60,7 @@ class _AlertHistoryPageState extends State<AlertHistoryPage> {
                     size: 35,
                   ),
                 ),
+                //-------------------------------------------------------
               );
             }),
       ),

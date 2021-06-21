@@ -1,20 +1,21 @@
 import 'dart:ui';
 
+import 'package:arcair/settings/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 //AlertHistoryPage görünümü
 class AlertHistoryCardWidget extends StatelessWidget {
-  final int coLevel,
-      temperature,
-      humidityLevel,
-      airQuality; //Cihazdan gelen değerler
-  final String alertText; //alertText: Uyarı metni deviceName: programlanacak cihaz adı
-  final Color cardColor; // uyarı seviyesine card rengi
-  final DateTime dateTime = new DateTime.now(); // Uyarı zamanı(verildiği zamanı alacak)
+  //--------Cihazdan gelen değerler----------
+  final int coLevel, temperature, humidityLevel, airQuality;
+  //------------------------------------------
+  final String alertText; //alertText: Uyarı metni
+  final Color cardColor; // uyarı seviyesine göre card rengi
+  final DateTime dateTime =
+      new DateTime.now(); // Uyarı zamanı(verildiği zamanı alacak)
 
-  //Değiskenlerin constructorları
+  //-----Değiskenlerin constructorları----
   AlertHistoryCardWidget(
       {this.alertText,
       this.cardColor,
@@ -22,7 +23,7 @@ class AlertHistoryCardWidget extends StatelessWidget {
       this.temperature,
       this.humidityLevel,
       this.airQuality});
-
+//------------------------------------
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,28 +37,31 @@ class AlertHistoryCardWidget extends StatelessWidget {
                 children: [
                   Container(
                     alignment: Alignment.topRight,
+                    //----------Uyarı Zamanı-------------
                     child: Text(
                       DateFormat.yMd().format(dateTime),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
+                      style: textStyle,
                     ),
+                    //-----------------------------------
                   ),
-                  Text(alertText,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                      overflow: TextOverflow.clip),
+                  //----------------Uyarı Metni----------------------------
+                  Text(
+                    alertText,
+                    style: textStyle
+                  ),
+                  //-----------------------------------------------------------
                   SizedBox(
-                    height: 5,
+                    height: minSpace,
                   ),
                   Row(
+                    //-----------------------Uyarı anındaki cihaz değerleri-------------------
                     children: [
                       Expanded(
                         flex: 2,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            //-----------------Karbonmonoksit----------------------------
                             Text(
                               "CO",
                               style: TextStyle(
@@ -66,9 +70,9 @@ class AlertHistoryCardWidget extends StatelessWidget {
                             Text("ppm"),
                             Text(
                               coLevel.toString(),
-                              style: TextStyle(
-                                  fontSize: 35, fontWeight: FontWeight.bold),
+                              style: iconStyle,
                             ),
+                            //---------------------------------------------------------
                           ],
                         ),
                       ),
@@ -76,17 +80,18 @@ class AlertHistoryCardWidget extends StatelessWidget {
                         flex: 2,
                         child: Column(
                           children: [
+                            //------------------------Nem---------------------------------
                             Icon(
                               FontAwesomeIcons.tint,
-                              size: 35,
+                              size: iconSize,
                               color: Colors.blue,
                             ),
                             Text("%"),
                             Text(
                               humidityLevel.toString(),
-                              style: TextStyle(
-                                  fontSize: 35, fontWeight: FontWeight.bold),
+                              style: iconStyle,
                             ),
+                            //------------------------------------------------------------
                           ],
                         ),
                       ),
@@ -94,17 +99,18 @@ class AlertHistoryCardWidget extends StatelessWidget {
                         flex: 2,
                         child: Column(
                           children: [
+                            //-----------------------Sıcaklık-----------------------------
                             Icon(
                               FontAwesomeIcons.thermometerHalf,
-                              size: 35,
+                              size: iconSize,
                               color: Colors.red,
                             ),
                             Text("°C"),
                             Text(
                               temperature.toString(),
-                              style: TextStyle(
-                                  fontSize: 35, fontWeight: FontWeight.bold),
+                              style: iconStyle,
                             ),
+                            //--------------------------------------------------------------
                           ],
                         ),
                       ),
@@ -112,25 +118,28 @@ class AlertHistoryCardWidget extends StatelessWidget {
                         flex: 2,
                         child: Column(
                           children: [
+                            //-----------------------Hava Kalitesi---------------------------
                             Icon(
                               FontAwesomeIcons.wind,
-                              size: 35,
+                              size: iconSize,
                               color: Colors.blueGrey,
                             ),
                             Text("ppm"),
                             Text(
                               airQuality.toString(),
-                              style: TextStyle(
-                                  fontSize: 35, fontWeight: FontWeight.bold),
+                              style: iconStyle,
                             ),
+                            //--------------------------------------------------------------
                           ],
                         ),
                       ),
+                      //----------Uyarı ikonu---------
                       Icon(
                         Icons.warning_rounded,
                         color: Colors.black,
                         size: 40,
-                      )
+                      ),
+                      //----------------------------
                     ],
                   ),
                 ],

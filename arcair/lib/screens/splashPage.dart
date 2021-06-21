@@ -9,14 +9,17 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 3), () { // Sayfanın görünme süresi
+    //----Önceki sayfayı silerek LoginPage'e geçiş--------
       Navigator.pushNamedAndRemoveUntil(
           context, "/loginPage", (route) => false);
+    //----------------------------------------------------
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    //----------Arkaplan görünümü---------------
     final screenSize = MediaQuery.of(context).size;
     return Container(
       width: screenSize.width,
@@ -28,5 +31,6 @@ class _SplashPageState extends State<SplashPage> {
         ),
       ),
     );
+    //-------------------------------------------
   }
 }

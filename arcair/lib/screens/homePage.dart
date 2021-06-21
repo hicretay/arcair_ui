@@ -8,7 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // DeviceCardWidget sınıfı türünde cihaz bilgileri listesi
+  // ---DeviceCardWidget sınıfı türünde cihaz bilgileri listesi----
   List<DeviceCardWidget> devices = [
     DeviceCardWidget(
       airQuality: 43,
@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
       warningColor: Colors.black,
     ),
   ];
+  //------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +66,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.pushNamed(context, "/nearbyWifiPage");
         },
       ),
+      //--------------------Sayfa Arkaplanı -----------------------
       body: BackgroundWidget(
         child: Padding(
           padding: EdgeInsets.only(top: 10),
@@ -75,10 +77,11 @@ class _HomePageState extends State<HomePage> {
               }),
         ),
       ),
+      //-----------------------------------------------------------
     );
   }
 
-  // Sağ üstteki açılır menü
+  // ----------------Sağ üst açılır menü--------------------
   buildPopupMenu() {
     return PopupMenuButton(
       onSelected: (value) {},
@@ -124,5 +127,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
     );
+    //--------------------------------------------------------------
   }
 }

@@ -22,17 +22,19 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(
               height: 50,
             ),
-            // Kullanıcıdan ad soyad, e posta ve şifre alınarak kayıt yapılacak
+            // Kullanıcıdan alınacak ad soyad, e posta ve şifre widgetları
             TextFieldWidget(labelText: "Adı Soyadı:", obscureText: false),
             TextFieldWidget(labelText: "E-Posta", obscureText: false),
             TextFieldWidget(labelText: "Şifre", obscureText: true),
+            //---------------------------------------------------------
+            
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: MaterialButtonWidget(
                 // Kayıt tamamlandığında
                 buttonText: "KAYDOL",
                 onPressed: () {
-                  // Kayıt tamamlandığında giriş ekranına atacak
+                  // Kayıt tamamlandığında kullanıcıyı giriş ekranına atacak
                   Navigator.pushNamedAndRemoveUntil(
                       context, "/loginPage", (route) => false);
                 },

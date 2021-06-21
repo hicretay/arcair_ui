@@ -1,20 +1,24 @@
+import 'package:arcair/settings/consts.dart';
 import 'package:flutter/material.dart';
 
-//MaterialButton widgetının özelleştirilmesi
+//MaterialButton widgetının özelleştirilmesi sınıfı
+//LoginPage, RegisterPage ve DeviceProgrammingPage'de kullanıldı
 class MaterialButtonWidget extends StatelessWidget {
-  final VoidCallback onPressed;
-  final String buttonText;
+  final VoidCallback onPressed; //buton olayları
+  final String buttonText; //Buton metni
 
   MaterialButtonWidget({this.onPressed, this.buttonText});
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(  // onPressed parametre alana özelleştirilmiş materialButton
+    //----------------MaterialButton Görünümü-------------------
+    return MaterialButton(
       onPressed: onPressed,
       child:
           Text(buttonText, style: TextStyle(color: Colors.white, fontSize: 18)),
       minWidth: 140,
       height: 50,
-      color: Color(0xff66778e),
+      color: Color(primaryColor),
     );
+    //-------------------------------------------------------------------------
   }
 }
