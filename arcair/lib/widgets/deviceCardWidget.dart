@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //MaterialButtonWidget, TextFiedlWidget widgetları kullanıldı
 class DeviceCardWidget extends StatelessWidget {
   // -----Cihazdan gelen CO, nem, sıcaklık, hava kalitesi verileri--------
-  final int coLevel, temperature, humidityLevel, airQuality;
+  final String coLevel, temperature, humidityLevel, airQuality;
   //--------------------------------------------------
   final String deviceName; //Cihaz adı
   final Color
