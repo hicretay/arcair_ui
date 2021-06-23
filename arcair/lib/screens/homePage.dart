@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:arcair/models/dataModel.dart';
 import 'package:arcair/settings/consts.dart';
 import 'package:arcair/settings/functions.dart';
 import 'package:arcair/widgets/backgroundWidget.dart';
 import 'package:arcair/widgets/deviceCardWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,12 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // ---DeviceCardWidget sınıfı türünde cihaz bilgileri listesi----
-  //List<DeviceCardWidget> devices = [];
-  //------------------------------------------------------------
   Weather _weatherdata;
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -44,45 +36,64 @@ class _HomePageState extends State<HomePage> {
       body: BackgroundWidget(
         child: Padding(
           padding: EdgeInsets.only(top: 10),
-          child: ListView.builder(
-              itemCount: 1,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: [
-                    FutureBuilder(
-                      future: weatherDataFunc(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.data != null) {
-                          this._weatherdata = snapshot.data;
-                          if (this._weatherdata == null) {
-                            print("Birseyler yanlis gitti");
-                            return Text("Birseyler yanlis gitti");
-                          } else {
-                            return DeviceCardWidget(
-                              airQuality: "43",
-                              cardColor: Color.fromRGBO(0, 255, 0, 0.2),
-                              deviceName: "AFYON",
-                              coLevel: "35",
-                              humidityLevel: _weatherdata.humidity.toString(),
-                              temperature: _weatherdata.temp.toString(),
-                              warningColor: Colors.transparent,
-                            );
-                          } // devices listesi döndürülecek
-                        } else {
-                          return Center(child: CircularProgressIndicator());
-                        }
-                      },
-                    ),
-                  ],
-                );
-              }),
+          child: ListView(
+            children: [
+              FutureBuilder(
+                future: weatherDataFunc1(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.data != null) {
+                    this._weatherdata = snapshot.data;
+                    if (this._weatherdata == null) {
+                      print("Birseyler yanlis gitti");
+                      return Text("Birseyler yanlis gitti");
+                    } else {
+                      return DeviceCardWidget(
+                        airQuality: "43",
+                        cardColor: Color.fromRGBO(0, 255, 0, 0.2),
+                        deviceName: "AFYON",
+                        coLevel: "35",
+                        humidityLevel: _weatherdata.humidity.toString(),
+                        temperature: _weatherdata.temp.toString(),
+                        warningColor: Colors.transparent,
+                      );
+                    }
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+              FutureBuilder(
+                future: weatherDataFunc2(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.data != null) {
+                    this._weatherdata = snapshot.data;
+                    if (this._weatherdata == null) {
+                      return Text("Bir seyler yanlis gitti");
+                    } else {
+                      return DeviceCardWidget(
+                        airQuality: "45",
+                        cardColor: Color.fromRGBO(0, 255, 0, 0.2),
+                        deviceName: "KONYA",
+                        coLevel: "33",
+                        humidityLevel: _weatherdata.humidity.toString(),
+                        temperature: _weatherdata.temp.toString(),
+                        warningColor: Colors.transparent,
+                      );
+                    }
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
-      //-----------------------------------------------------------
+      //------------------------------------------------------------------------
     );
   }
 
-  // ----------------Sağ üst açılır menü--------------------
+  // -----------------------------Sağ üst açılır menü---------------------------
   buildPopupMenu() {
     return PopupMenuButton(
       onSelected: (value) {},
@@ -128,6 +139,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
     );
-    //--------------------------------------------------------------
+    //--------------------------------------------------------------------------
   }
 }
