@@ -41,11 +41,12 @@ class _HomePageState extends State<HomePage> {
       }
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      RemoteNotification notification = message.notification;
-      AndroidNotification android = message.notification?.android;
-      if (notification != null && android != null) {
-        showDialog(
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (RemoteMessage message) {
+        RemoteNotification notification = message.notification;
+        AndroidNotification android = message.notification?.android;
+        if (notification != null && android != null) {
+          showDialog(
             context: context,
             builder: (_) {
               return AlertDialog(
@@ -57,24 +58,31 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               );
-            });
-      }
-    });
+            },
+          );
+        }
+      },
+    );
   }
 
   void showNotification() {
     setState(() {});
     flutterLocalNotificationsPlugin.show(
-        0,
-        "Testing ${_weatherdata.temp.toString()}",
-        "How you doin ?",
-        NotificationDetails(
-            android: AndroidNotificationDetails(
-                channel.id, channel.name, channel.description,
-                importance: Importance.high,
-                color: Colors.blue,
-                playSound: true,
-                icon: '@mipmap/ic_launcher')));
+      0,
+      "ARCAir",
+      "Sıcaklık ${_weatherdata.temp.toString()} °C",
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          channel.description,
+          importance: Importance.high,
+          color: Colors.blue,
+          playSound: true,
+          icon: '@mipmap/ic_launcher',
+        ),
+      ),
+    );
   }
 
   @override
@@ -105,12 +113,12 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             children: [
               FutureBuilder(
-                future: weatherDataFunc1(),
+                future: getWeatherData(url1),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data != null) {
                     this._weatherdata = snapshot.data;
                     if (this._weatherdata == null) {
-                      return Text("Birseyler yanlis gitti");
+                      return Text("Bir seyler yanlis gitti");
                     } else {
                       return DeviceCardWidget(
                         airQuality: "43",
@@ -128,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               FutureBuilder(
-                future: weatherDataFunc2(),
+                future: getWeatherData(url2),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data != null) {
                     this._weatherdata = snapshot.data;
