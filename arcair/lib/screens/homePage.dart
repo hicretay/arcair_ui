@@ -1,9 +1,13 @@
+import 'package:arcair/main.dart';
 import 'package:arcair/models/dataModel.dart';
 import 'package:arcair/settings/consts.dart';
 import 'package:arcair/settings/functions.dart';
 import 'package:arcair/widgets/backgroundWidget.dart';
 import 'package:arcair/widgets/deviceCardWidget.dart';
 import 'package:flutter/material.dart';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,6 +16,66 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Weather _weatherdata;
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channel.description,
+                color: Colors.blue,
+                playSound: true,
+                icon: '@mipmap/ic_launcher',
+              ),
+            ));
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
+      if (notification != null && android != null) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: Text(notification.title),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(notification.body)],
+                  ),
+                ),
+              );
+            });
+      }
+    });
+  }
+
+  void showNotification() {
+    setState(() {});
+    flutterLocalNotificationsPlugin.show(
+        0,
+        "Testing ${_weatherdata.temp.toString()}",
+        "How you doin ?",
+        NotificationDetails(
+            android: AndroidNotificationDetails(
+                channel.id, channel.name, channel.description,
+                importance: Importance.high,
+                color: Colors.blue,
+                playSound: true,
+                icon: '@mipmap/ic_launcher')));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +93,9 @@ class _HomePageState extends State<HomePage> {
           size: 28,
         ),
         onPressed: () {
-          Navigator.pushNamed(context, "/nearbyWifiPage");
+          //Navigator.pushNamed(context, "/nearbyWifiPage");
+          showNotification();
+          setState(() {});
         },
       ),
       //--------------------Sayfa Arkaplanı -----------------------
@@ -44,7 +110,6 @@ class _HomePageState extends State<HomePage> {
                   if (snapshot.data != null) {
                     this._weatherdata = snapshot.data;
                     if (this._weatherdata == null) {
-                      print("Birseyler yanlis gitti");
                       return Text("Birseyler yanlis gitti");
                     } else {
                       return DeviceCardWidget(

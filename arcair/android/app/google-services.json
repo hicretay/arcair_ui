@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "972289029763",
+    "project_id": "arcair-2021",
+    "storage_bucket": "arcair-2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972289029763:android:e165a33c88d213c7378db6",
+        "android_client_info": {
+          "package_name": "com.example.arcair"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972289029763-73qbm8eru088iohhuamojd22tp1b0j69.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhy8GctsuPTJdTQxi7JniTJ0sqMRJQbE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972289029763-73qbm8eru088iohhuamojd22tp1b0j69.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
