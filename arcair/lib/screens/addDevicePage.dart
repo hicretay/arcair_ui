@@ -2,6 +2,8 @@ import 'package:arcair/widgets/backgroundWidget.dart';
 import 'package:arcair/widgets/materialButtonWidget.dart';
 import 'package:arcair/widgets/textFieldWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:simply_wifi/simply_wifi.dart';
+import 'package:wifi_iot/wifi_iot.dart';
 
 class AddDevicePage extends StatefulWidget {
   @override
@@ -9,52 +11,24 @@ class AddDevicePage extends StatefulWidget {
 }
 
 class _AddDevicePageState extends State<AddDevicePage> {
-  //---------Örnek Wifi cihazları listesi-----------------
-  List wifi = [
-    ListTile(
-      title: Text(
-        "VODAFONE",
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      leading: Icon(Icons.wifi),
-    ),
-    ListTile(
-      title: Text(
-        "TURKCELL",
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      leading: Icon(Icons.wifi),
-    ),
-    ListTile(
-      title: Text(
-        "TurkTelekom",
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      leading: Icon(Icons.wifi),
-    ),
-    ListTile(
-      title: Text(
-        "SuperOnline",
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      leading: Icon(Icons.wifi),
-    ),
-    ListTile(
-      title: Text(
-        "TTNET",
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      leading: Icon(Icons.wifi),
-    ),
-    ListTile(
-      title: Text(
-        "FiberNet",
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      leading: Icon(Icons.wifi),
-    ),
-  ];
-  //----------------------------------------------------
+  String name = "Unknown";
+  List<WifiNetwork> _wifiNetworks = [];
+  // wifi_iot pluginin WifiNetwork classı türünde liste
+
+  Future<void> getWifiList() async {
+    var list = await SimplyWifi.getListOfWifis();
+    setState(() {
+      this._wifiNetworks = list;
+    });
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      getWifiList();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,9 +75,18 @@ class _AddDevicePageState extends State<AddDevicePage> {
               flex: 4,
               // ------------wifi listesi ----------------
               child: ListView.builder(
-                itemCount: wifi.length,
+                itemCount: _wifiNetworks.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return wifi[index];
+                  return ListTile(
+                    title: Center(
+                      child: Text(
+                        _wifiNetworks[index].ssid,
+                        style: TextStyle(
+                          fontSize: 22,
+                        ),
+                      ),
+                    ),
+                  );
                 },
               ),
               //-------------------------------------------

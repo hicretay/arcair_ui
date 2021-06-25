@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,6 +17,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Weather _weatherdata;
+  //StreamController _streamControllerdata = StreamController();
+
+  Future<void> getPermission() async {
+    var status = await Permission.locationWhenInUse.status;
+    if (!status.isGranted) {
+      PermissionStatus permissionStatus =
+          await Permission.locationWhenInUse.request();
+      print("PermissionStatus ${permissionStatus.isGranted}");
+    } else if (status.isDenied) {
+      Permission.locationWhenInUse.request();
+    }
+  }
 
   @override
   void initState() {
@@ -66,7 +79,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void showNotification() {
-    setState(() {});
     flutterLocalNotificationsPlugin.show(
       0,
       "ARCAir",
@@ -101,19 +113,20 @@ class _HomePageState extends State<HomePage> {
           size: 28,
         ),
         onPressed: () {
-          //Navigator.pushNamed(context, "/nearbyWifiPage");
-          showNotification();
+          Navigator.pushNamed(context, "/nearbyWifiPage");
+          getPermission();
+          //showNotification();
           setState(() {});
         },
       ),
-      //--------------------Sayfa Arkaplanı -----------------------
+      //----------------------------Sayfa Arkaplanı ----------------------------
       body: BackgroundWidget(
         child: Padding(
           padding: EdgeInsets.only(top: 10),
           child: ListView(
             children: [
-              FutureBuilder(
-                future: getWeatherData(url1),
+              StreamBuilder(
+                stream: getWeatherDataStream(url1),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data != null) {
                     this._weatherdata = snapshot.data;
@@ -135,29 +148,30 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
               ),
-              FutureBuilder(
-                future: getWeatherData(url2),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.data != null) {
-                    this._weatherdata = snapshot.data;
-                    if (this._weatherdata == null) {
-                      return Text("Bir seyler yanlis gitti");
-                    } else {
-                      return DeviceCardWidget(
-                        airQuality: "45",
-                        cardColor: Color.fromRGBO(0, 255, 0, 0.2),
-                        deviceName: "KONYA",
-                        coLevel: "33",
-                        humidityLevel: _weatherdata.humidity.toString(),
-                        temperature: _weatherdata.temp.toString(),
-                        warningColor: Colors.transparent,
-                      );
-                    }
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
+              // FutureBuilder(
+
+              //   future: getWeatherData(url2),
+              //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+              //     if (snapshot.data != null) {
+              //       this._weatherdata = snapshot.data;
+              //       if (this._weatherdata == null) {
+              //         return Text("Bir seyler yanlis gitti");
+              //       } else {
+              //         return DeviceCardWidget(
+              //           airQuality: "45",
+              //           cardColor: Color.fromRGBO(0, 255, 0, 0.2),
+              //           deviceName: "KONYA",
+              //           coLevel: "33",
+              //           humidityLevel: _weatherdata.humidity.toString(),
+              //           temperature: _weatherdata.temp.toString(),
+              //           warningColor: Colors.transparent,
+              //         );
+              //       }
+              //     } else {
+              //       return Center(child: CircularProgressIndicator());
+              //     }
+              //   },
+              // ),
             ],
           ),
         ),
