@@ -1,3 +1,4 @@
+import 'package:arcair/settings/consts.dart';
 import 'package:arcair/widgets/backgroundWidget.dart';
 import 'package:arcair/widgets/materialButtonWidget.dart';
 import 'package:arcair/widgets/textFieldWidget.dart';
@@ -15,12 +16,14 @@ class _AddDevicePageState extends State<AddDevicePage> {
   List<WifiNetwork> _wifiNetworks = [];
   // wifi_iot pluginin WifiNetwork classı türünde liste
 
+//--------------------Wifi Listesi Doldurma Fonksiyonu--------------------------
   Future<void> getWifiList() async {
     var list = await SimplyWifi.getListOfWifis();
     setState(() {
       this._wifiNetworks = list;
     });
   }
+//------------------------------------------------------------------------------
 
   @override
   void initState() {
@@ -41,7 +44,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 20.0),
+              padding: const EdgeInsets.only(top: defaultPadding),
               //----------wifi'ı seçilen cihaz ismi ----------
               child: Text(
                 "ARCAİR_123 Cihazını Ekle",
@@ -53,7 +56,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
               //-------------------------------------------
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: defaultPadding),
               // ----------Cihaz adı girişi---------------
               child: TextFieldWidget(
                 labelText: "Cihaz Adı",
@@ -62,7 +65,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
               //----------------------------------------
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: defaultPadding),
               child: Text(
                 "Cihazın Bağlanacağı Wifi'ı Seç",
                 style: TextStyle(

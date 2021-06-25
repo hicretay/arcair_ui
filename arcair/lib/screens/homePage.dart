@@ -125,8 +125,8 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.only(top: 10),
           child: ListView(
             children: [
-              StreamBuilder(
-                stream: getWeatherDataStream(url1),
+              FutureBuilder(
+                future: getWeatherData(url1),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data != null) {
                     this._weatherdata = snapshot.data;
@@ -148,30 +148,29 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
               ),
-              // FutureBuilder(
-
-              //   future: getWeatherData(url2),
-              //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-              //     if (snapshot.data != null) {
-              //       this._weatherdata = snapshot.data;
-              //       if (this._weatherdata == null) {
-              //         return Text("Bir seyler yanlis gitti");
-              //       } else {
-              //         return DeviceCardWidget(
-              //           airQuality: "45",
-              //           cardColor: Color.fromRGBO(0, 255, 0, 0.2),
-              //           deviceName: "KONYA",
-              //           coLevel: "33",
-              //           humidityLevel: _weatherdata.humidity.toString(),
-              //           temperature: _weatherdata.temp.toString(),
-              //           warningColor: Colors.transparent,
-              //         );
-              //       }
-              //     } else {
-              //       return Center(child: CircularProgressIndicator());
-              //     }
-              //   },
-              // ),
+              FutureBuilder(
+                future: getWeatherData(url2),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.data != null) {
+                    this._weatherdata = snapshot.data;
+                    if (this._weatherdata == null) {
+                      return Text("Bir seyler yanlis gitti");
+                    } else {
+                      return DeviceCardWidget(
+                        airQuality: "45",
+                        cardColor: Color.fromRGBO(0, 255, 0, 0.2),
+                        deviceName: "KONYA",
+                        coLevel: "33",
+                        humidityLevel: _weatherdata.humidity.toString(),
+                        temperature: _weatherdata.temp.toString(),
+                        warningColor: Colors.transparent,
+                      );
+                    }
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
             ],
           ),
         ),
