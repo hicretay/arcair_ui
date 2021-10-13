@@ -1,3 +1,4 @@
+import 'package:arcair/settings/consts.dart';
 import 'package:arcair/widgets/backgroundWidget.dart';
 import 'package:arcair/widgets/chartWidget.dart';
 import 'package:arcair/widgets/detailCardWidget.dart';
@@ -66,18 +67,18 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("SALON"),   // seçilen cihaz adı appBara yazılacak
+        title: Text("AFYON"),   // seçilen cihaz adı appBara yazılacak
       ),
       body: BackgroundWidget(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: defaultPadding),
               child: DetailCardWidget(   // cihazın anlık değerlerini verecek
                 airQuality: 43,
                 coLevel: 35,
-                humidityLevel: 30,
-                temperature: 22,
+                humidityLevel: 29,
+                temperature: 28,
                 warningColor: Colors.black,
                 onPressed: () {
                   // Cihaz Programlama sayfasına geçiş 

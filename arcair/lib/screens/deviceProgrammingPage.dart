@@ -1,3 +1,4 @@
+import 'package:arcair/settings/consts.dart';
 import 'package:arcair/widgets/backgroundWidget.dart';
 import 'package:arcair/widgets/materialButtonWidget.dart';
 import 'package:arcair/widgets/rangeSliderWidget.dart';
@@ -19,7 +20,7 @@ class _DeviceProgrammingPageState extends State<DeviceProgrammingPage> {
       ),
       body: BackgroundWidget(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(maxSpace),
           child: Column(
             children: [
               Flexible(
@@ -105,7 +106,7 @@ class _DeviceProgrammingPageState extends State<DeviceProgrammingPage> {
                       ),
                       //------------------------------------------------------
                     ),
-                    SizedBox(width: 10),
+                    SizedBox(width: maxSpace),
                     Expanded(
                       //-------Detay sayfasıan gitme--------------------------
                       child: MaterialButtonWidget(

@@ -7,12 +7,12 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'high_importance_channel', // id
-  'High Importance Notifications', // title
-  'This channel is used for important notifications.', // description
+  'High Importance Notifications', // başlık
+  'This channel is used for important notifications.', // açıklama
   importance: Importance.high,
   playSound: true,
 );
-
+// Firebase FlutterLocalNotificationsPlugin tanımlanması
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
@@ -21,6 +21,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 Future<void> main() async {
+  // Firebase'in başlatılması
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -30,16 +31,23 @@ Future<void> main() async {
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
+// Bildirim özelliklerinin ayarlanması
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
     sound: true,
   );
+//------------------------------------------------------------------------------
+
   //------------Uygualama teması, AppBar ve yazı tipi özelleştirme--------------
-  ThemeData theme = new ThemeData(fontFamily: "Quicksand-Medium").copyWith(
+  ThemeData theme = new ThemeData(
+    fontFamily: "Quicksand-Medium",
+  ).copyWith(
+    // yazı tipi
     appBarTheme: AppBarTheme(
-      color: Color(primaryColor),
-      centerTitle: true,
+      // AppBar teması
+      color: Color(primaryColor), //AppBar rengi
+      centerTitle: true, // başlık konumu
     ),
   );
   runApp(

@@ -16,58 +16,71 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Weather _weatherdata;
-  //StreamController _streamControllerdata = StreamController();
+  Weather _weatherdata; // Weather model sınıfı türünden değişken
 
+// ----------------------Wifi İçin Konum İzni Fonksiyonu------------------------
   Future<void> getPermission() async {
     var status = await Permission.locationWhenInUse.status;
     if (!status.isGranted) {
       PermissionStatus permissionStatus =
           await Permission.locationWhenInUse.request();
+      // konum izni verildiyse
       print("PermissionStatus ${permissionStatus.isGranted}");
+      // konum izni reddedildiyse
     } else if (status.isDenied) {
       Permission.locationWhenInUse.request();
     }
   }
 
+//------------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification notification = message.notification;
-      AndroidNotification android = message.notification?.android;
-      if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channel.description,
-                color: Colors.blue,
-                playSound: true,
-                icon: '@mipmap/ic_launcher',
-              ),
-            ));
-      }
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen(
+// -----------------------Firebase'den alınan mesajı dinleme--------------------
+    FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) {
         RemoteNotification notification = message.notification;
         AndroidNotification android = message.notification?.android;
         if (notification != null && android != null) {
+          flutterLocalNotificationsPlugin.show(
+            notification.hashCode, // bildirim kodu
+            notification.title, // bildirim başlığı
+            notification.body, // bildirim içeriği
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id, //kanal id'si
+                channel.name, // kanal adı
+                channel.description, // bildirim içeriği
+                color: Colors.blue, // ikon rengi
+                playSound: true, // ses seçeneği
+                icon: '@mipmap/ic_launcher', // bildirim ikonu
+              ),
+            ),
+          );
+        }
+      },
+    );
+//------------------------------------------------------------------------------
+
+//-------------------Bildirim Açıldığında görünecek yapı------------------------
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (RemoteMessage message) {
+        RemoteNotification notification = message.notification;
+        // Android için bildirim oluşturma
+        AndroidNotification android = message.notification?.android;
+        if (notification != null && android != null) {
+          // ------bildirim boş değilse gösterilecek alertDialog yapısı---------
           showDialog(
             context: context,
             builder: (_) {
               return AlertDialog(
-                title: Text(notification.title),
+                title: Text(notification.title), // bildirim başlığını alma
                 content: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text(notification.body)],
+                    children: [
+                      Text(notification.body), // bildirim içeriğini alma
+                    ],
                   ),
                 ),
               );
@@ -77,25 +90,7 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-
-  void showNotification() {
-    flutterLocalNotificationsPlugin.show(
-      0,
-      "ARCAir",
-      "Sıcaklık ${_weatherdata.temp.toString()} °C",
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          channel.id,
-          channel.name,
-          channel.description,
-          importance: Importance.high,
-          color: Colors.blue,
-          playSound: true,
-          icon: '@mipmap/ic_launcher',
-        ),
-      ),
-    );
-  }
+//------------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +98,7 @@ class _HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("ARCAİR"),
-        actions: [buildPopupMenu()],
+        actions: [buildPopupMenu()], //açılır menü fonksiyonu
       ),
       floatingActionButton: FloatingActionButton(
         // yeni cihaz ekleme
@@ -113,9 +108,9 @@ class _HomePageState extends State<HomePage> {
           size: 28,
         ),
         onPressed: () {
-          Navigator.pushNamed(context, "/nearbyWifiPage");
-          getPermission();
-          //showNotification();
+          Navigator.pushNamed(context, "/nearbyWifiPage"); 
+          // Yakındaki wifilara yönlendirme
+          getPermission(); // konum izni isteme
           setState(() {});
         },
       ),
@@ -125,6 +120,7 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.only(top: 10),
           child: ListView(
             children: [
+              //-------------FutureBuilder ile apiden veri çekme----------------
               FutureBuilder(
                 future: getWeatherData(url1),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -132,22 +128,30 @@ class _HomePageState extends State<HomePage> {
                     this._weatherdata = snapshot.data;
                     if (this._weatherdata == null) {
                       return Text("Bir seyler yanlis gitti");
+                      // hata mesajı
                     } else {
                       return DeviceCardWidget(
                         airQuality: "43",
                         cardColor: Color.fromRGBO(0, 255, 0, 0.2),
+                        // transparan yeşil
                         deviceName: "AFYON",
                         coLevel: "35",
                         humidityLevel: _weatherdata.humidity.toString(),
+                        // apiden çekilen nem seviyesi değeri
                         temperature: _weatherdata.temp.toString(),
+                        // apiden çekilen sıcalkık değeri
                         warningColor: Colors.transparent,
                       );
                     }
                   } else {
                     return Center(child: CircularProgressIndicator());
+                    // veri çekilene kadar progress döndür
                   }
                 },
               ),
+              //----------------------------------------------------------------
+
+              //-------------FutureBuilder ile apiden veri çekme----------------
               FutureBuilder(
                 future: getWeatherData(url2),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -155,22 +159,28 @@ class _HomePageState extends State<HomePage> {
                     this._weatherdata = snapshot.data;
                     if (this._weatherdata == null) {
                       return Text("Bir seyler yanlis gitti");
+                      // hata mesajı
                     } else {
                       return DeviceCardWidget(
                         airQuality: "45",
                         cardColor: Color.fromRGBO(0, 255, 0, 0.2),
+                        // transparan yeşil
                         deviceName: "KONYA",
                         coLevel: "33",
                         humidityLevel: _weatherdata.humidity.toString(),
+                        // apiden çekilen nem seviyesi değeri
                         temperature: _weatherdata.temp.toString(),
+                        // apiden çekilen sıcalkık değeri
                         warningColor: Colors.transparent,
                       );
                     }
                   } else {
                     return Center(child: CircularProgressIndicator());
+                    // veri çekilene kadar progress döndür
                   }
                 },
               ),
+              //----------------------------------------------------------------
             ],
           ),
         ),
