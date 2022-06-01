@@ -19,8 +19,7 @@ dependencies:<br>
   shared_preferences: ^2.0.6<br> 
   toast: ^0.1.5<br> 
 
-</a>![arcair](https://user-images.githubusercontent.com/46728765/143826982-bb48269f-9318-458d-877f-29c824cd655e.gif)
-
+<img src="https://user-images.githubusercontent.com/46728765/143826982-bb48269f-9318-458d-877f-29c824cd655e.gif" width="350">
 
 </p>
 
